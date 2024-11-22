@@ -1,2 +1,1 @@
-# -mmscou.test
-This is MMS
+These are some simple program of c++ for bacic learning. 
