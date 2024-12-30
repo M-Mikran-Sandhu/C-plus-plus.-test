@@ -1,14 +1,20 @@
 #include<iostream>
 using namespace std;
 int main()
-{
-	char b;
-	cout<<"ENTER CHARACTER:";
-	cin>>b;
-	
-	if(b=='a'||b=='e'||b=='i'||b=='o'||b=='u'||b=='A'||b=='E'||b=='I'||b=='O'||b=='U')
-	cout<<"IT IS VOWEL";
-	else
-	cout<<"IT IS CONSEQUENT";
-	
+{	
+	int m[10];
+	for(int i=1;i<=10;i++){
+		cout<<"ENTER "<<i<<" VALUE:";
+		cin>>m[i];
+	}
+	cout<<endl;
+	int t[10];
+	for(int i=1;i<=10;i++){
+		t[i]=m[i]*5;
+	}
+	for(int i=1;i<=10;i++){
+		cout<<"AFTER:";
+		cout<<t[i]<<"\n";
+	}
 }
+

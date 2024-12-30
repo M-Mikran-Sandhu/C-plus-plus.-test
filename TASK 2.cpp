@@ -2,18 +2,22 @@
 using namespace std;
 int main()
 {
-	int f,s,l;
-	cout<<"ENTER FIRST VALUE:";
-	cin>>f;
-	cout<<"ENTER SECOND VALUE:";
-	cin>>s;
-	
-	l=f;
-	f=s;
-	s=l;
-	
-	cout<<"AFTER SWAPING \n";
-	cout<<"ENTER FIRST VALUE:"<<f<<endl;
-	cout<<"ENTER SECOND VALUE:"<<s;
-	 
+	int m[11]={167,173,170,160,182,154,166,177,184,151,163};
+	int temp;
+	for(int i=0;i<=10;i++){
+		cout<<m[i]<<",";
+	}	
+	for(int j=1;j<=10;j++){
+		for(int r=0;r<=10;r++){
+			if(m[r]>m[j]){
+				temp=m[r];
+				m[r]=m[j];
+				m[j]=temp;
+			}
+		}
+	}
+	cout<"AFTER SORTING";
+	for(int i=0;i<=10;i++){
+		cout<<m[i]<<endl;
+	}
 }
