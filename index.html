@@ -458,6 +458,697 @@ int main() {
     return 0;
 }</code></pre>
             </div>
+            <div class="code-snippet-card">
+                <h2>inheritance_basic.cpp</h2>
+                <p>Demonstrates basic class inheritance with a base and derived class, including constructor calls.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+// Base class
+class Shape {
+protected: // Changed to protected to allow derived class to access, or use public getter
+    std::string name_;
+
+public:
+    Shape(const std::string&amp; name) : name_(name) {
+        std::cout &lt;&lt; "Shape constructor called for: " &lt;&lt; name_ &lt;&lt; std::endl;
+    }
+
+    std::string getName() const {
+        return name_;
+    }
+};
+
+// Derived class
+class Circle : public Shape {
+private:
+    double radius_;
+
+public:
+    Circle(double radius) : Shape("Circle"), radius_(radius) {
+        std::cout &lt;&lt; "Circle constructor called." &lt;&lt; std::endl;
+    }
+
+    double getRadius() const {
+        return radius_;
+    }
+};
+
+int main() {
+    // Create a Circle object
+    Circle myCircle(5.0);
+
+    // Print its name and radius
+    std::cout &lt;&lt; "Shape Name: " &lt;&lt; myCircle.getName() &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Circle Radius: " &lt;&lt; myCircle.getRadius() &lt;&lt; " units" &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>polymorphism_virtual_functions.cpp</h2>
+                <p>Illustrates polymorphism using virtual functions in a class hierarchy and virtual destructors.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+// Base class
+class Animal {
+public:
+    // Virtual function
+    virtual void makeSound() const {
+        std::cout &lt;&lt; "Animal sound" &lt;&lt; std::endl;
+    }
+
+    // Virtual destructor (good practice when dealing with polymorphism and dynamic memory)
+    virtual ~Animal() {
+        std::cout &lt;&lt; "Animal destructor called." &lt;&lt; std::endl;
+    }
+};
+
+// Derived class Dog
+class Dog : public Animal {
+public:
+    void makeSound() const override {
+        std::cout &lt;&lt; "Woof!" &lt;&lt; std::endl;
+    }
+
+    ~Dog() override {
+        std::cout &lt;&lt; "Dog destructor called." &lt;&lt; std::endl;
+    }
+};
+
+// Derived class Cat
+class Cat : public Animal {
+public:
+    void makeSound() const override {
+        std::cout &lt;&lt; "Meow!" &lt;&lt; std::endl;
+    }
+
+    ~Cat() override {
+        std::cout &lt;&lt; "Cat destructor called." &lt;&lt; std::endl;
+    }
+};
+
+int main() {
+    Animal* animal1;
+    Animal* animal2;
+
+    // Assign a Dog object to animal1
+    animal1 = new Dog();
+    // Assign a Cat object to animal2
+    animal2 = new Cat();
+
+    std::cout &lt;&lt; "Calling makeSound() on animal1 (Dog): ";
+    animal1-&gt;makeSound(); 
+
+    std::cout &lt;&lt; "Calling makeSound() on animal2 (Cat): ";
+    animal2-&gt;makeSound(); 
+
+    // Clean up dynamic memory
+    delete animal1;
+    animal1 = nullptr; // Good practice to nullify pointer after delete
+
+    delete animal2;
+    animal2 = nullptr; // Good practice
+
+    return 0;
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>linked_list_simple.cpp</h2>
+                <p>Shows a basic implementation of a singly linked list, including node creation, prepending, and list traversal.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+// Define a Node struct
+struct Node {
+    int data;
+    Node* next;
+
+    // Constructor for Node
+    Node(int val) : data(val), next(nullptr) {}
+};
+
+// Function to add a new node to the front of the list
+void prependNode(Node** head_ref, int new_data) {
+    Node* new_node = new Node(new_data); // Create a new node
+    new_node-&gt;next = *head_ref;      // Link the new node to the current head
+    *head_ref = new_node;            // Make the new node the new head
+}
+
+// Function to print the list elements
+void printList(Node* node) {
+    std::cout &lt;&lt; "Linked List: ";
+    while (node != nullptr) {
+        std::cout &lt;&lt; node-&gt;data &lt;&lt; " -&gt; ";
+        node = node-&gt;next;
+    }
+    std::cout &lt;&lt; "nullptr" &lt;&lt; std::endl;
+}
+
+// Function to clean up the list (delete all nodes)
+void deleteList(Node** head_ref) {
+    Node* current = *head_ref;
+    Node* next_node = nullptr;
+    while (current != nullptr) {
+        next_node = current-&gt;next; // Store the next node
+        delete current;            // Delete the current node
+        current = next_node;       // Move to the next node
+    }
+    *head_ref = nullptr; // Set head to nullptr after deleting all nodes
+}
+
+int main() {
+    // Initialize an empty linked list
+    Node* head = nullptr;
+
+    // Prepend a few nodes
+    prependNode(&amp;head, 10);
+    prependNode(&amp;head, 7);
+    prependNode(&amp;head, 3);
+
+    // Print the list
+    printList(head);
+
+    // Clean up the list
+    std::cout &lt;&lt; "Deleting the list..." &lt;&lt; std::endl;
+    deleteList(&amp;head);
+    printList(head); // Should show an empty list
+
+    return 0;
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>map_basic.cpp</h2>
+                <p>Demonstrates `std::map` for key-value pairs, covering insertion, access, iteration, and checking for existence.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;map&gt;
+#include &lt;string&gt;
+
+int main() {
+    // Create std::map&lt;std::string, int&gt; student_scores;
+    std::map&lt;std::string, int&gt; student_scores;
+
+    // Insert pairs
+    student_scores["Alice"] = 95;
+    student_scores["Bob"] = 82;
+    student_scores["Charlie"] = 91;
+
+    // Access and print Bob's score
+    std::cout &lt;&lt; "Bob's score: " &lt;&lt; student_scores["Bob"] &lt;&lt; std::endl;
+
+    // Iterate through the map using a range-based for loop
+    std::cout &lt;&lt; "\nAll student scores:" &lt;&lt; std::endl;
+    for (auto const&amp; [name, score] : student_scores) { // C++17 structured binding
+        std::cout &lt;&lt; name &lt;&lt; ": " &lt;&lt; score &lt;&lt; std::endl;
+    }
+    /*
+    // Alternative for older C++ versions:
+    for (auto const&amp; pair : student_scores) {
+        std::cout &lt;&lt; pair.first &lt;&lt; ": " &lt;&lt; pair.second &lt;&lt; std::endl;
+    }
+    */
+
+    // Check if a key "David" exists
+    std::string search_name = "David";
+    if (student_scores.count(search_name)) { // Or student_scores.find(search_name) != student_scores.end()
+        std::cout &lt;&lt; "\n" &lt;&lt; search_name &lt;&lt; "'s score is: " &lt;&lt; student_scores[search_name] &lt;&lt; std::endl;
+    } else {
+        std::cout &lt;&lt; "\n" &lt;&lt; search_name &lt;&lt; " is not found in the map." &lt;&lt; std::endl;
+    }
+    
+    std::string search_name_bob = "Bob";
+    if (student_scores.count(search_name_bob)) {
+        std::cout &lt;&lt; search_name_bob &lt;&lt; "'s score is: " &lt;&lt; student_scores[search_name_bob] &lt;&lt; std::endl;
+    } else {
+        std::cout &lt;&lt; search_name_bob &lt;&lt; " is not found in the map." &lt;&lt; std::endl;
+    }
+
+
+    return 0;
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>lambda_expressions.cpp</h2>
+                <p>Provides examples of C++ lambda expressions for simple operations, captures, and use with STL algorithms like `std::sort`.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt; // Required for std::for_each and std::sort
+#include &lt;string&gt;    // For sorting strings example
+
+// A simple struct for sorting example
+struct Item {
+    std::string name;
+    int value;
+};
+
+int main() {
+    // Example 1: Printing each number doubled using std::for_each and a lambda
+    std::vector&lt;int&gt; numbers = {1, 2, 3, 4, 5, 6};
+    std::cout &lt;&lt; "Numbers doubled: ";
+    std::for_each(numbers.begin(), numbers.end(), [](int n) {
+        std::cout &lt;&lt; n * 2 &lt;&lt; " ";
+    });
+    std::cout &lt;&lt; std::endl;
+
+    // Example 2: Lambda capturing a variable by value
+    int factor = 3;
+    std::cout &lt;&lt; "Numbers multiplied by " &lt;&lt; factor &lt;&lt; ": ";
+    std::for_each(numbers.begin(), numbers.end(), [factor](int n) {
+        std::cout &lt;&lt; n * factor &lt;&lt; " ";
+    });
+    std::cout &lt;&lt; std::endl;
+
+    // Example 3: Sorting numbers in descending order using std::sort and a lambda
+    std::vector&lt;int&gt; sort_numbers = {5, 2, 8, 1, 9, 4};
+    std::cout &lt;&lt; "Original numbers for sorting: ";
+    for (int n : sort_numbers) {
+        std::cout &lt;&lt; n &lt;&lt; " ";
+    }
+    std::cout &lt;&lt; std::endl;
+
+    std::sort(sort_numbers.begin(), sort_numbers.end(), [](int a, int b) {
+        return a &gt; b; // Sort in descending order
+    });
+
+    std::cout &lt;&lt; "Numbers sorted in descending order: ";
+    for (int n : sort_numbers) {
+        std::cout &lt;&lt; n &lt;&lt; " ";
+    }
+    std::cout &lt;&lt; std::endl;
+
+    // Example 4: Sorting a vector of custom objects (struct Item) by value
+    std::vector&lt;Item&gt; items = {{"apple", 10}, {"banana", 5}, {"cherry", 15}};
+    std::cout &lt;&lt; "\nOriginal items: ";
+    for(const auto&amp; item : items) {
+        std::cout &lt;&lt; "{" &lt;&lt; item.name &lt;&lt; ", " &lt;&lt; item.value &lt;&lt; "} ";
+    }
+    std::cout &lt;&lt; std::endl;
+
+    std::sort(items.begin(), items.end(), [](const Item&amp; a, const Item&amp; b) {
+        return a.value &lt; b.value; // Sort by value in ascending order
+    });
+    
+    std::cout &lt;&lt; "Items sorted by value: ";
+    for(const auto&amp; item : items) {
+        std::cout &lt;&lt; "{" &lt;&lt; item.name &lt;&lt; ", " &lt;&lt; item.value &lt;&lt; "} ";
+    }
+    std::cout &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>range_auto.cpp</h2>
+                <p>Shows the use of range-based for loops for iterating over collections and `auto` for type deduction.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+
+int main() {
+    // Create std::vector&lt;std::string&gt; words
+    std::vector&lt;std::string&gt; words = {"hello", "world", "from", "c++"};
+
+    // Use a range-based for loop to print each word
+    std::cout &lt;&lt; "Words in the vector:" &lt;&lt; std::endl;
+    for (const auto&amp; word : words) {
+        std::cout &lt;&lt; word &lt;&lt; " ";
+    }
+    std::cout &lt;&lt; std::endl;
+
+    // Declare variables using auto for type deduction
+    auto num = 42;
+    auto text = "example text"; // C-style string literal, type will be const char*
+    auto pi_approx = 3.14159;
+
+    std::cout &lt;&lt; "\nAuto type deduction examples:" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "num (deduced as int): " &lt;&lt; num &lt;&lt; std::endl;
+    std::cout &lt;&lt; "text (deduced as const char*): " &lt;&lt; text &lt;&lt; std::endl;
+    std::cout &lt;&lt; "pi_approx (deduced as double): " &lt;&lt; pi_approx &lt;&lt; std::endl;
+    
+    // Show auto with an iterator
+    std::cout &lt;&lt; "\nAuto with iterator:" &lt;&lt; std::endl;
+    auto it = words.begin(); // it will be of type std::vector&lt;std::string&gt;::iterator
+    
+    if (it != words.end()) {
+        std::cout &lt;&lt; "First word using iterator: " &lt;&lt; *it &lt;&lt; std::endl;
+        // Let's increment the iterator to show another element
+        ++it;
+        if (it != words.end()) {
+            std::cout &lt;&lt; "Second word using iterator: " &lt;&lt; *it &lt;&lt; std::endl;
+        }
+    }
+
+    return 0;
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>doubly_linked_list.cpp</h2>
+                <p>Demonstrates a doubly linked list with node creation, appending, and forward/backward traversal.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+// Define a Node struct for Doubly Linked List
+struct Node {
+    int data;
+    Node* next;
+    Node* prev;
+
+    // Constructor for Node
+    Node(int val) : data(val), next(nullptr), prev(nullptr) {}
+};
+
+// Function to add a new node to the end of the list
+void appendNode(Node** head_ref, int new_data) {
+    Node* new_node = new Node(new_data);
+    Node* last = *head_ref; // Used to traverse to the last node
+
+    // If the list is empty, make the new node the head
+    if (*head_ref == nullptr) {
+        *head_ref = new_node;
+        return;
+    }
+
+    // Traverse to the last node
+    while (last-&gt;next != nullptr) {
+        last = last-&gt;next;
+    }
+
+    // Link the new node
+    last-&gt;next = new_node;
+    new_node-&gt;prev = last;
+}
+
+// Function to print the list elements from head to tail
+void printListForward(Node* node) {
+    std::cout &lt;&lt; "List (Forward): Head -&gt; ";
+    while (node != nullptr) {
+        std::cout &lt;&lt; node-&gt;data &lt;&lt; " &lt;-&gt; ";
+        node = node-&gt;next;
+    }
+    std::cout &lt;&lt; "nullptr" &lt;&lt; std::endl;
+}
+
+// Function to print the list elements from tail to head
+void printListBackward(Node* head) {
+    if (head == nullptr) {
+        std::cout &lt;&lt; "List (Backward): nullptr" &lt;&lt; std::endl;
+        return;
+    }
+    // Traverse to the tail of the list
+    Node* tail = head;
+    while (tail-&gt;next != nullptr) {
+        tail = tail-&gt;next;
+    }
+
+    std::cout &lt;&lt; "List (Backward): Tail -&gt; ";
+    while (tail != nullptr) {
+        std::cout &lt;&lt; tail-&gt;data &lt;&lt; " &lt;-&gt; ";
+        tail = tail-&gt;prev;
+    }
+    std::cout &lt;&lt; "nullptr (Head)" &lt;&lt; std::endl;
+}
+
+// Function to clean up the list (delete all nodes)
+void cleanup(Node** head_ref) {
+    Node* current = *head_ref;
+    Node* next_node = nullptr;
+    while (current != nullptr) {
+        next_node = current-&gt;next;
+        delete current;
+        current = next_node;
+    }
+    *head_ref = nullptr;
+    std::cout &lt;&lt; "List cleaned up." &lt;&lt; std::endl;
+}
+
+int main() {
+    // Initialize an empty list
+    Node* head = nullptr;
+
+    // Append a few nodes
+    appendNode(&amp;head, 1);
+    appendNode(&amp;head, 2);
+    appendNode(&amp;head, 3);
+
+    // Print the list forward
+    printListForward(head);
+
+    // Print the list backward
+    printListBackward(head);
+
+    // Clean up the list
+    cleanup(&amp;head);
+    printListForward(head); // Should show an empty list
+
+    return 0;
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>pointers_to_objects.cpp</h2>
+                <p>Shows creating objects on stack and heap, and managing an array of heap-allocated objects with pointers.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt; // Not strictly needed for array of MyClass*, but good for general C++
+
+class MyClass {
+private:
+    std::string name_;
+
+public:
+    // Public constructor
+    MyClass(std::string name) : name_(name) {
+        std::cout &lt;&lt; "Constructor: " &lt;&lt; name_ &lt;&lt; std::endl;
+    }
+
+    // Public destructor
+    ~MyClass() {
+        std::cout &lt;&lt; "Destructor: " &lt;&lt; name_ &lt;&lt; std::endl;
+    }
+
+    // Public member function
+    void printMessage() {
+        std::cout &lt;&lt; "Message from " &lt;&lt; name_ &lt;&lt; std::endl;
+    }
+};
+
+int main() {
+    // Stack-allocated object
+    std::cout &lt;&lt; "--- Stack Object ---" &lt;&lt; std::endl;
+    MyClass obj_stack("StackObj");
+    obj_stack.printMessage();
+    std::cout &lt;&lt; "--- End Stack Object ---" &lt;&lt; std::endl;
+
+    std::cout &lt;&lt; "\n--- Heap Object (single) ---" &lt;&lt; std::endl;
+    // Heap-allocated object (single pointer)
+    MyClass* ptr_heap = new MyClass("HeapObj");
+    ptr_heap-&gt;printMessage();
+    delete ptr_heap;
+    ptr_heap = nullptr; // Good practice
+    std::cout &lt;&lt; "--- End Heap Object (single) ---" &lt;&lt; std::endl;
+
+    std::cout &lt;&lt; "\n--- Array of Heap Objects ---" &lt;&lt; std::endl;
+    // Array of MyClass pointers
+    const int ARRAY_SIZE = 3;
+    MyClass* ptr_array[ARRAY_SIZE];
+
+    // Loop to dynamically create MyClass objects and assign to array elements
+    std::cout &lt;&lt; "Creating objects in array:" &lt;&lt; std::endl;
+    for (int i = 0; i &lt; ARRAY_SIZE; ++i) {
+        std::string obj_name = "ArrayObj" + std::to_string(i);
+        ptr_array[i] = new MyClass(obj_name);
+    }
+
+    // Loop to call printMessage() for each object in the array
+    std::cout &lt;&lt; "\nCalling messages from array objects:" &lt;&lt; std::endl;
+    for (int i = 0; i &lt; ARRAY_SIZE; ++i) {
+        ptr_array[i]-&gt;printMessage();
+    }
+
+    // Loop to delete each object in the array
+    std::cout &lt;&lt; "\nDeleting objects in array:" &lt;&lt; std::endl;
+    for (int i = 0; i &lt; ARRAY_SIZE; ++i) {
+        delete ptr_array[i];
+        ptr_array[i] = nullptr; // Good practice
+    }
+    std::cout &lt;&lt; "--- End Array of Heap Objects ---" &lt;&lt; std::endl;
+    
+    std::cout &lt;&lt; "\nEnd of main." &lt;&lt; std::endl;
+    return 0;
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>class_composition.cpp</h2>
+                <p>Illustrates class composition where one class (Car) contains an object of another class (Engine).</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+// Engine class
+class Engine {
+private:
+    int horsepower_;
+
+public:
+    // Constructor to initialize horsepower_
+    Engine(int hp) : horsepower_(hp) {
+        std::cout &lt;&lt; "Engine created with " &lt;&lt; horsepower_ &lt;&lt; " hp" &lt;&lt; std::endl;
+    }
+
+    // Public member function to start the engine
+    void start() {
+        std::cout &lt;&lt; "Engine started" &lt;&lt; std::endl;
+    }
+
+    // Public member function to get horsepower
+    int getHorsepower() const { // Added const as it doesn't modify member variables
+        return horsepower_;
+    }
+};
+
+// Car class
+class Car {
+private:
+    Engine engine_; // Engine object is a member of Car
+
+public:
+    // Constructor initializes engine_ using member initializer list
+    Car(int hp) : engine_(hp) {
+        std::cout &lt;&lt; "Car created" &lt;&lt; std::endl;
+    }
+
+    // Public member function to start the car
+    void startCar() {
+        engine_.start(); // Car delegates the start operation to its Engine
+        std::cout &lt;&lt; "Car is running" &lt;&lt; std::endl;
+    }
+
+    // Public member function to display engine horsepower
+    void displayEngineHp() const { // Added const
+        std::cout &lt;&lt; "Car engine horsepower: " &lt;&lt; engine_.getHorsepower() &lt;&lt; std::endl;
+    }
+};
+
+int main() {
+    // Create a Car object, which in turn creates an Engine object
+    Car myCar(200);
+    
+    // Start the car
+    myCar.startCar();
+    
+    // Display its engine's horsepower
+    myCar.displayEngineHp();
+
+    return 0;
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>class_aggregation.cpp</h2>
+                <p>Demonstrates class aggregation using `std::shared_ptr` to manage shared ownership of Professor objects by Department objects.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;memory&gt; // Required for std::shared_ptr and std::make_shared
+
+// Professor class
+class Professor {
+private:
+    std::string name_;
+
+public:
+    // Constructor to initialize name_
+    Professor(const std::string&amp; name) : name_(name) {
+        std::cout &lt;&lt; "Professor " &lt;&lt; name_ &lt;&lt; " hired." &lt;&lt; std::endl;
+    }
+
+    // Public member function to get the name
+    std::string getName() const { // Added const
+        return name_;
+    }
+
+    ~Professor() {
+        std::cout &lt;&lt; "Professor " &lt;&lt; name_ &lt;&lt; " is no longer with us." &lt;&lt; std::endl;
+    }
+};
+
+// Department class
+class Department {
+private:
+    std::string name_;
+    std::vector&lt;std::shared_ptr&lt;Professor&gt;&gt; professors_; // Holds shared_ptrs to Professors
+
+public:
+    // Constructor to initialize name_
+    Department(const std::string&amp; name) : name_(name) {
+        std::cout &lt;&lt; "Department of " &lt;&lt; name_ &lt;&lt; " established." &lt;&lt; std::endl;
+    }
+
+    // Public member function to get the name
+    std::string getName() const { // Added const
+        return name_;
+    }
+
+    // Public member function to add a professor
+    void addProfessor(std::shared_ptr&lt;Professor&gt; prof) {
+        professors_.push_back(prof);
+        std::cout &lt;&lt; "Professor " &lt;&lt; prof-&gt;getName() &lt;&lt; " added to the " &lt;&lt; name_ &lt;&lt; " department." &lt;&lt; std::endl;
+    }
+
+    // Public member function to list professors
+    void listProfessors() const { // Added const
+        std::cout &lt;&lt; "\nProfessors in the " &lt;&lt; name_ &lt;&lt; " department:" &lt;&lt; std::endl;
+        if (professors_.empty()) {
+            std::cout &lt;&lt; "  (No professors listed)" &lt;&lt; std::endl;
+            return;
+        }
+        for (const auto&amp; prof : professors_) {
+            std::cout &lt;&lt; "  - " &lt;&lt; prof-&gt;getName() &lt;&lt; std::endl;
+        }
+    }
+    ~Department() {
+        std::cout &lt;&lt; "Department of " &lt;&lt; name_ &lt;&lt; " is disbanded. Professors associated:" &lt;&lt; std::endl;
+        for (const auto&amp; prof : professors_) {
+            std::cout &lt;&lt; "  - " &lt;&lt; prof-&gt;getName() &lt;&lt; " (use_count: " &lt;&lt; prof.use_count() &lt;&lt; ")" &lt;&lt; std::endl;
+        }
+    }
+};
+
+int main() {
+    std::cout &lt;&lt; "--- Creating Professors ---" &lt;&lt; std::endl;
+    auto prof1 = std::make_shared&lt;Professor&gt;("Dr. Smith");
+    auto prof2 = std::make_shared&lt;Professor&gt;("Dr. Jones");
+    auto prof3 = std::make_shared&lt;Professor&gt;("Dr. Brown");
+
+    std::cout &lt;&lt; "\n--- Creating Departments and Adding Professors ---" &lt;&lt; std::endl;
+    auto cs_dept = std::make_shared&lt;Department&gt;("Computer Science");
+    cs_dept-&gt;addProfessor(prof1);
+    cs_dept-&gt;addProfessor(prof2);
+
+    auto math_dept = std::make_shared&lt;Department&gt;("Mathematics");
+    math_dept-&gt;addProfessor(prof1); // Dr. Smith is also in Mathematics
+    math_dept-&gt;addProfessor(prof3);
+
+    cs_dept-&gt;listProfessors();
+    math_dept-&gt;listProfessors();
+
+    std::cout &lt;&lt; "\n--- Checking Professor Smith's shared ownership ---" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Dr. Smith use_count: " &lt;&lt; prof1.use_count() &lt;&lt; " (shared by cs_dept, math_dept, and main's prof1)" &lt;&lt; std::endl;
+
+    std::cout &lt;&lt; "\n--- Disbanding Computer Science Department ---" &lt;&lt; std::endl;
+    cs_dept.reset(); // Release cs_dept's ownership
+
+    std::cout &lt;&lt; "\n--- Checking Professor Smith's shared ownership after CS disbandment ---" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Dr. Smith use_count: " &lt;&lt; prof1.use_count() &lt;&lt; " (shared by math_dept and main's prof1)" &lt;&lt; std::endl;
+    if (prof1) { // Check if prof1 is still valid
+        std::cout &lt;&lt; "Dr. Smith still exists and is affiliated with: " &lt;&lt; prof1-&gt;getName() &lt;&lt; std::endl;
+    }
+    
+    math_dept-&gt;listProfessors(); // Dr. Smith should still be listed in Mathematics
+
+    std::cout &lt;&lt; "\n--- End of main ---" &lt;&lt; std::endl;
+    // prof1, prof2, prof3, math_dept will go out of scope here,
+    // and their destructors will be called, releasing ownership.
+    // Professors' destructors will be called when their use_count reaches 0.
+    return 0;
+}</code></pre>
+            </div>
         </main>
     </div>
 </body>
