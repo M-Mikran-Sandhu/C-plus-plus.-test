@@ -208,6 +208,256 @@ int main() {
     return 0;
 }</code></pre>
             </div>
+            <div class="code-snippet-card">
+                <h2>class_simple.cpp</h2>
+                <p>Demonstrates a simple class definition and usage, including a constructor and a member function.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+// Define a class named Rectangle
+class Rectangle {
+private:
+    int width;
+    int height;
+
+public:
+    // Constructor to initialize width and height
+    Rectangle(int w, int h) {
+        width = w;
+        height = h;
+    }
+
+    // Public member function to get the area
+    int getArea() {
+        return width * height;
+    }
+};
+
+int main() {
+    // Create an instance of Rectangle
+    Rectangle rect(10, 5);
+
+    // Print its area
+    std::cout &lt;&lt; "Rectangle Area: " &lt;&lt; rect.getArea() &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>pointers_basic.cpp</h2>
+                <p>Shows basic pointer declaration, assignment (getting the address of a variable), and dereferencing (accessing the value pointed to).</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+int main() {
+    // Declare an integer variable and initialize it
+    int number = 42;
+
+    // Declare an integer pointer
+    int *ptr;
+
+    // Assign the address of the integer variable to the pointer
+    ptr = &amp;number;
+
+    // Print the value of the integer variable
+    std::cout &lt;&lt; "Value of 'number': " &lt;&lt; number &lt;&lt; std::endl;
+
+    // Print the value stored at the address the pointer is pointing to (dereferencing)
+    std::cout &lt;&lt; "Value pointed to by 'ptr' (*ptr): " &lt;&lt; *ptr &lt;&lt; std::endl;
+
+    // Print the address stored in the pointer itself
+    std::cout &lt;&lt; "Address stored in 'ptr' (ptr): " &lt;&lt; ptr &lt;&lt; std::endl;
+    
+    // Print the address of 'number' directly for comparison
+    std::cout &lt;&lt; "Address of 'number' (&amp;number): " &lt;&lt; &amp;number &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>file_io.cpp</h2>
+                <p>Illustrates basic file input/output operations: writing to a file using std::ofstream and reading from a file using std::ifstream.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;fstream&gt; // Required for file I/O
+#include &lt;string&gt;   // Required for std::string
+
+int main() {
+    const std::string filename = "sample_output.txt";
+
+    // Writing to a file
+    std::ofstream outfile;
+    outfile.open(filename); // Or std::ofstream outfile(filename);
+
+    if (!outfile.is_open()) {
+        std::cerr &lt;&lt; "Error: Could not open the file " &lt;&lt; filename &lt;&lt; " for writing." &lt;&lt; std::endl;
+        return 1; // Indicate an error
+    }
+
+    outfile &lt;&lt; "Hello from C++ File I/O!" &lt;&lt; std::endl;
+    outfile &lt;&lt; "This is the second line." &lt;&lt; std::endl;
+    outfile &lt;&lt; "Writing numbers: " &lt;&lt; 12345 &lt;&lt; std::endl;
+
+    outfile.close();
+    std::cout &lt;&lt; "Successfully wrote to " &lt;&lt; filename &lt;&lt; std::endl;
+
+    // Reading from a file
+    std::ifstream infile;
+    infile.open(filename); // Or std::ifstream infile(filename);
+
+    if (!infile.is_open()) {
+        std::cerr &lt;&lt; "Error: Could not open the file " &lt;&lt; filename &lt;&lt; " for reading." &lt;&lt; std::endl;
+        return 1; // Indicate an error
+    }
+
+    std::cout &lt;&lt; "\nReading from " &lt;&lt; filename &lt;&lt; ":" &lt;&lt; std::endl;
+    std::string line;
+    while (std::getline(infile, line)) {
+        std::cout &lt;&lt; line &lt;&lt; std::endl;
+    }
+
+    infile.close();
+
+    return 0; // Indicate success
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>structs_simple.cpp</h2>
+                <p>Defines a simple struct and shows how to create an instance, initialize its members, and access them.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+// Define a struct named Point
+struct Point {
+    int x;
+    int y;
+};
+
+int main() {
+    // Create an instance of Point
+    Point p1;
+
+    // Initialize its members
+    p1.x = 10;
+    p1.y = 20;
+
+    // Print the values of the members
+    std::cout &lt;&lt; "Point Coordinates:" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "p1.x = " &lt;&lt; p1.x &lt;&lt; std::endl;
+    std::cout &lt;&lt; "p1.y = " &lt;&lt; p1.y &lt;&lt; std::endl;
+
+    // Another way to initialize (C++11 and later)
+    Point p2 = {30, 40};
+    std::cout &lt;&lt; "\nPoint p2 Coordinates:" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "p2.x = " &lt;&lt; p2.x &lt;&lt; std::endl;
+    std::cout &lt;&lt; "p2.y = " &lt;&lt; p2.y &lt;&lt; std::endl;
+    
+    return 0;
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>vectors_basic.cpp</h2>
+                <p>Demonstrates the use of `std::vector` for dynamic arrays, including adding elements (push_back), accessing them (operator[], iterators), getting size, and iterating.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt; // Required for std::vector
+
+int main() {
+    // Create an std::vector of integers
+    std::vector&lt;int&gt; numbers;
+
+    // Add a few elements to the vector using push_back()
+    numbers.push_back(10);
+    numbers.push_back(20);
+    numbers.push_back(30);
+    numbers.push_back(40);
+
+    // Access and print elements using array-like indexing ([])
+    std::cout &lt;&lt; "Accessing elements using []:" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Element 0: " &lt;&lt; numbers[0] &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Element 1: " &lt;&lt; numbers[1] &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Element 2: " &lt;&lt; numbers[2] &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Element 3: " &lt;&lt; numbers[3] &lt;&lt; std::endl;
+
+    // Print the size of the vector using size()
+    std::cout &lt;&lt; "\nSize of the vector: " &lt;&lt; numbers.size() &lt;&lt; std::endl;
+
+    // Iterate through the vector using a range-based for loop and print elements
+    std::cout &lt;&lt; "\nIterating using a range-based for loop:" &lt;&lt; std::endl;
+    for (int number : numbers) {
+        std::cout &lt;&lt; number &lt;&lt; " ";
+    }
+    std::cout &lt;&lt; std::endl;
+    
+    // Iterate through the vector using an iterator
+    std::cout &lt;&lt; "\nIterating using an iterator:" &lt;&lt; std::endl;
+    for (std::vector&lt;int&gt;::iterator it = numbers.begin(); it != numbers.end(); ++it) {
+        std::cout &lt;&lt; *it &lt;&lt; " ";
+    }
+    std::cout &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>exceptions_basic.cpp</h2>
+                <p>Shows basic exception handling using try-catch blocks to manage runtime errors like division by zero or invalid conversions.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;stdexcept&gt; // Required for std::exception and other standard exceptions
+#include &lt;string&gt;    // Required for std::string and std::stoi
+
+// Function that might throw an exception
+double divide(int numerator, int denominator) {
+    if (denominator == 0) {
+        throw std::runtime_error("Division by zero error!");
+    }
+    return static_cast&lt;double&gt;(numerator) / denominator;
+}
+
+// Function that might throw an exception during string conversion
+int stringToInt(const std::string&amp; str) {
+    try {
+        return std::stoi(str);
+    } catch (const std::invalid_argument&amp; e) {
+        throw std::invalid_argument("Invalid argument: Not a valid integer string. Original error: " + std::string(e.what()));
+    } catch (const std::out_of_range&amp; e) {
+        throw std::out_of_range("Out of range: The number is too large or too small. Original error: " + std::string(e.what()));
+    }
+}
+
+int main() {
+    // Example 1: Division by zero
+    std::cout &lt;&lt; "--- Example 1: Division by Zero ---" &lt;&lt; std::endl;
+    try {
+        double result = divide(10, 0);
+        std::cout &lt;&lt; "Result of division: " &lt;&lt; result &lt;&lt; std::endl; // This won't be reached
+    } catch (const std::runtime_error&amp; e) {
+        std::cerr &lt;&lt; "Caught an exception: " &lt;&lt; e.what() &lt;&lt; std::endl;
+    }
+
+    std::cout &lt;&lt; "\n--- Example 2: Invalid string to integer conversion ---" &lt;&lt; std::endl;
+    std::string test_str1 = "12345";
+    std::string test_str2 = "abc";
+    std::string test_str3 = "99999999999999999999"; // Potentially out of range
+
+    try {
+        int num1 = stringToInt(test_str1);
+        std::cout &lt;&lt; "'" &lt;&lt; test_str1 &lt;&lt; "' converted to int: " &lt;&lt; num1 &lt;&lt; std::endl;
+
+        int num2 = stringToInt(test_str2); // This will throw
+        std::cout &lt;&lt; "'" &lt;&lt; test_str2 &lt;&lt; "' converted to int: " &lt;&lt; num2 &lt;&lt; std::endl; 
+    } catch (const std::exception&amp; e) { // Catching base std::exception
+        std::cerr &lt;&lt; "Caught an exception: " &lt;&lt; e.what() &lt;&lt; std::endl;
+    }
+    
+    std::cout &lt;&lt; "\n--- Example 3: Out of range string to integer conversion ---" &lt;&lt; std::endl;
+    try {
+        int num3 = stringToInt(test_str3); // This might throw std::out_of_range
+        std::cout &lt;&lt; "'" &lt;&lt; test_str3 &lt;&lt; "' converted to int: " &lt;&lt; num3 &lt;&lt; std::endl;
+    } catch (const std::exception&amp; e) { // Catching base std::exception
+        std::cerr &lt;&lt; "Caught an exception: " &lt;&lt; e.what() &lt;&lt; std::endl;
+    }
+
+
+    std::cout &lt;&lt; "\nProgram continues after handling exceptions." &lt;&lt; std::endl;
+    return 0;
+}</code></pre>
+            </div>
         </main>
     </div>
 </body>
