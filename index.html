@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C++ Code Snippets</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <header>
+            <img src="cpp_icon.svg" alt="C++ Icon" style="width:50px; height:auto; vertical-align:middle;">
+            <h1 style="display:inline; vertical-align:middle; margin-left:10px;">C++ Code Snippets</h1>
+        </header>
+        <main class="main-content">
+            <div class="code-snippet-card">
+                <h2>arithmetic_operators.cpp</h2>
+                <p>Demonstrates basic arithmetic operations like addition, subtraction, multiplication, division, and modulus.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+int main() {
+    int a = 10, b = 5;
+    std::cout &lt;&lt; "Arithmetic Operators" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "a = " &lt;&lt; a &lt;&lt; ", b = " &lt;&lt; b &lt;&lt; std::endl;
+    std::cout &lt;&lt; "a + b = " &lt;&lt; (a + b) &lt;&lt; std::endl;
+    std::cout &lt;&lt; "a - b = " &lt;&lt; (a - b) &lt;&lt; std::endl;
+    std::cout &lt;&lt; "a * b = " &lt;&lt; (a * b) &lt;&lt; std::endl;
+    std::cout &lt;&lt; "a / b = " &lt;&lt; (a / b) &lt;&lt; std::endl;
+    std::cout &lt;&lt; "a % b = " &lt;&lt; (a % b) &lt;&lt; std::endl;
+    return 0;
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>arrays.cpp</h2>
+                <p>Shows declaration, initialization, accessing, and modifying elements in a 1D array.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+int main() {
+    // Declare and initialize an array
+    int numbers[5] = {10, 20, 30, 40, 50};
+
+    std::cout &lt;&lt; "Array Elements:" &lt;&lt; std::endl;
+
+    // Access and print array elements
+    for (int i = 0; i &lt; 5; ++i) {
+        std::cout &lt;&lt; "Element " &lt;&lt; i &lt;&lt; ": " &lt;&lt; numbers[i] &lt;&lt; std::endl;
+    }
+
+    // Modify an array element
+    numbers[2] = 35;
+    std::cout &lt;&lt; "After modification, Element 2: " &lt;&lt; numbers[2] &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>basic_io.cpp</h2>
+                <p>Illustrates basic input (std::cin, std::getline for strings) and output (std::cout) operations in C++.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt; // Required for std::string
+
+int main() {
+    int age;
+    std::string name;
+
+    // Output using std::cout
+    std::cout &lt;&lt; "Enter your name: ";
+    // Input using std::cin
+    std::getline(std::cin, name); // Use getline to read the whole line, including spaces
+
+    std::cout &lt;&lt; "Enter your age: ";
+    std::cin &gt;&gt; age;
+
+    std::cout &lt;&lt; "Hello, " &lt;&lt; name &lt;&lt; "! You are " &lt;&lt; age &lt;&lt; " years old." &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>conditional_statements.cpp</h2>
+                <p>Provides examples of conditional statements: if, else if, and else.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+int main() {
+    int number;
+    std::cout &lt;&lt; "Enter an integer: ";
+    std::cin &gt;&gt; number;
+
+    if (number &gt; 0) {
+        std::cout &lt;&lt; "You entered a positive integer." &lt;&lt; std::endl;
+    } else if (number &lt; 0) {
+        std::cout &lt;&lt; "You entered a negative integer." &lt;&lt; std::endl;
+    } else {
+        std::cout &lt;&lt; "You entered zero." &lt;&lt; std::endl;
+    }
+
+    int score = 85;
+    char grade;
+
+    if (score &gt;= 90) {
+        grade = 'A';
+    } else if (score &gt;= 80) {
+        grade = 'B';
+    } else if (score &gt;= 70) {
+        grade = 'C';
+    } else if (score &gt;= 60) {
+        grade = 'D';
+    } else {
+        grade = 'F';
+    }
+    std::cout &lt;&lt; "Your grade is: " &lt;&lt; grade &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>functions.cpp</h2>
+                <p>Shows how to declare, define, and call a simple function in C++.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+// Function declaration (prototype)
+int add(int a, int b);
+
+int main() {
+    int num1 = 10, num2 = 5;
+    int sum;
+
+    // Function call
+    sum = add(num1, num2);
+
+    std::cout &lt;&lt; "The sum of " &lt;&lt; num1 &lt;&lt; " and " &lt;&lt; num2 &lt;&lt; " is: " &lt;&lt; sum &lt;&lt; std::endl;
+
+    return 0;
+}
+
+// Function definition
+int add(int a, int b) {
+    return a + b;
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>loops.cpp</h2>
+                <p>Contains examples of different loop structures: for, while, and do-while.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+int main() {
+    std::cout &lt;&lt; "For Loop:" &lt;&lt; std::endl;
+    // For loop
+    for (int i = 0; i &lt; 5; ++i) {
+        std::cout &lt;&lt; "i = " &lt;&lt; i &lt;&lt; std::endl;
+    }
+
+    std::cout &lt;&lt; "\nWhile Loop:" &lt;&lt; std::endl;
+    // While loop
+    int j = 0;
+    while (j &lt; 5) {
+        std::cout &lt;&lt; "j = " &lt;&lt; j &lt;&lt; std::endl;
+        ++j;
+    }
+
+    std::cout &lt;&lt; "\nDo-While Loop:" &lt;&lt; std::endl;
+    // Do-while loop
+    int k = 0;
+    do {
+        std::cout &lt;&lt; "k = " &lt;&lt; k &lt;&lt; std::endl;
+        ++k;
+    } while (k &lt; 5);
+
+    return 0;
+}</code></pre>
+            </div>
+            <div class="code-snippet-card">
+                <h2>variables_datatypes.cpp</h2>
+                <p>Demonstrates the declaration and initialization of common C++ data types like int, float, double, char, bool, and string, as well as constants.</p>
+                <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt; // Required for std::string
+
+int main() {
+    // Integer data type
+    int age = 25;
+    std::cout &lt;&lt; "Age (int): " &lt;&lt; age &lt;&lt; std::endl;
+
+    // Floating-point data type
+    float temperature = 98.6f; // Use 'f' suffix for float literals
+    std::cout &lt;&lt; "Temperature (float): " &lt;&lt; temperature &lt;&lt; std::endl;
+
+    // Double-precision floating-point data type
+    double pi = 3.1415926535;
+    std::cout &lt;&lt; "Pi (double): " &lt;&lt; pi &lt;&lt; std::endl;
+
+    // Character data type
+    char grade = 'A';
+    std::cout &lt;&lt; "Grade (char): " &lt;&lt; grade &lt;&lt; std::endl;
+
+    // Boolean data type
+    bool isStudent = true;
+    std::cout &lt;&lt; "Is student? (bool): " &lt;&lt; (isStudent ? "true" : "false") &lt;&lt; std::endl;
+
+    // String data type
+    std::string name = "John Doe";
+    std::cout &lt;&lt; "Name (string): " &lt;&lt; name &lt;&lt; std::endl;
+    
+    // Constant variable
+    const int MAX_SCORE = 100;
+    std::cout &lt;&lt; "Max Score (const int): " &lt;&lt; MAX_SCORE &lt;&lt; std::endl;
+    // MAX_SCORE = 101; // This would cause a compile error
+
+    return 0;
+}</code></pre>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
