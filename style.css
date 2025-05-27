@@ -1,0 +1,83 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif; /* Default sans-serif font */
+    margin: 0; /* Remove default browser margin */
+    padding: 20px; /* Add some padding around the content */
+    background-color: #f4f4f4; /* Light gray background color */
+    color: #333; /* Default text color */
+}
+
+/* Header styling */
+header {
+    text-align: center; /* Center the header content */
+    margin-bottom: 30px;
+}
+
+header img {
+    width: 50px; /* Icon width */
+    height: auto; /* Maintain aspect ratio */
+    vertical-align: middle; /* Align icon with text if text is next to it */
+}
+
+header h1 {
+    display: inline; /* Keep h1 on the same line as the image if desired */
+    vertical-align: middle;
+    margin-left: 10px; /* Space between icon and title */
+    font-size: 2.5em; /* Main title font size */
+    color: #2c3e50; /* Dark blue color for the title */
+}
+
+/* Main content container styling */
+.main-container {
+    max-width: 1200px; /* Max width of the content area */
+    margin: 0 auto; /* Center the container on the page */
+    padding: 15px;
+}
+
+.main-content {
+    /* This class is currently on the <main> element in index.html */
+    /* Add specific styles if needed, otherwise, it inherits from main-container or body */
+}
+
+/* Code snippet card styling */
+.code-snippet-card {
+    background-color: #ffffff; /* White background for cards */
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 5px; /* Slightly rounded corners */
+    margin-bottom: 20px; /* Space between cards */
+    padding: 15px; /* Padding inside each card */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+}
+
+/* Filename heading within each card */
+.code-snippet-card h2 {
+    font-size: 1.5em;
+    color: #34495e; /* Darker blue for snippet titles */
+    margin-top: 0; /* Remove default top margin */
+    margin-bottom: 10px;
+}
+
+/* Description paragraph within each card */
+.code-snippet-card p {
+    font-size: 0.9em;
+    color: #555; /* Slightly lighter text color for description */
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Code block styling */
+pre {
+    background-color: #2d2d2d; /* Dark background for code blocks */
+    color: #f8f8f2; /* Light text color for code */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 15px; /* Padding inside the pre tag */
+    overflow-x: auto; /* Enable horizontal scrolling for long lines */
+    white-space: pre-wrap; /* Wrap lines that are too long but preserve formatting */
+    word-wrap: break-word; /* Break words if they are too long to fit */
+}
+
+code {
+    font-family: 'Courier New', Courier, monospace; /* Monospaced font for code */
+    font-size: 0.9em;
+}
